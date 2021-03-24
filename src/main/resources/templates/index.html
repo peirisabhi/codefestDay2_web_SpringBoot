@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Codefest Day2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .box h2 {
+        }
+
+        .box {
+            width: 30%;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            margin: auto;
+            margin-top: 10%;
+            font-family: "Segoe UI";
+        }
+
+        .box span {
+            font-size: 20px;
+            font-weight: 350;
+            float: left
+        }
+
+        .box input {
+            width: 65%;
+            height: 25px;
+            margin-left: 2%;
+            padding: 5px;
+            font-size: 16px;
+            font-weight: 350;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            float: right;
+        }
+
+        .bt {
+            width: 20%;
+            height: 35px;
+            font-size: 16px;
+            border: 1px solid #27ae60;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #27ae60;
+        }
+
+        .bt:hover {
+            background-color: #27ae60;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+<div class="box">
+    <center>
+        <h1>User Register</h1>
+        <br/>
+        <br/>
+        <form method="POST" id="form1" action="/user" enctype="multipart/form-data">
+
+<!--                <p th:text="'Hello, ' + ${status} + '!'" />-->
+
+            <div style="width: 90%; margin: auto;">
+                <span>Name</span>
+                <input type="text" name="name" id="name" />
+                <br/><br/><br/>
+                <span>Email</span>
+                <input type="email" name="email" id="email" />
+                <br/><br/><br/>
+                <span>Password</span>
+                <input type="password" name="password" id="password" />
+                <br/><br/><br/>
+                <button class="bt" style="" type="submit">Save</button>
+                <br/><br/><br/>
+            </div>
+        </form>
+    </center>
+</div>
+
+
+<script>
+
+    function signIn() {
+
+        var mb = document.getElementById("username").value;
+        var pw = document.getElementById("password").value;
+
+        // console.log(mb);
+        // console.log(pw);
+
+
+        $.ajax({
+            url: 'http://localhost:8888/auth',
+            type: "post",
+            dataType: 'json',
+            data: {
+                username: $('#username').val(),
+                password: $('#password').val()
+            },
+
+            error: function (error) {
+                alert(error);
+                console.log(error);
+                // cart_load();
+
+            },
+            success: function (r) {
+                // console.log(r);
+                // cart_load();
+                // $('#cart_img').attr("src", "assets/frontend/images/product_images/" + r.img);
+                // $('#addCartModal').modal();
+                console.log(r.status)
+
+                if(r.status == 200){
+                    alert("Seccess");
+                }else{
+                    alert("Invalid Details");
+                }
+            }
+        });
+
+    }
+
+</script>
+
+</body>
+</html>
